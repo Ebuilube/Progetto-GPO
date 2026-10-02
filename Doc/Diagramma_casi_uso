@@ -1,0 +1,54 @@
+\documentclass[a4paper,addpoints]{article}
+\usepackage{amsfonts,amssymb,amsmath, amsthm}
+\usepackage{xcolor}
+\usepackage{pgf,tikz,pgfplots}
+\pgfplotsset{compat=1.15}
+\usepgfplotslibrary{fillbetween}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+\usepackage{tabu}
+
+\usepackage{tikz}
+\usetikzlibrary {shapes , arrows , fit , calc, positioning}
+\tikzset{box/.style={draw, rectangle, rounded corners, thick, node distance =7 em, text width =6 em, text centered, minimum height =2.5 em}}
+\tikzset{line/.style={draw, thick, -latex'}}
+
+\usepackage{tikz-uml}
+\tikzumlset{actor below=0.4cm, fill usecase=white, fill class=white, text=black, draw=black}
+
+
+\begin{document}
+
+[Descrizione testuale del diagramma]
+
+\begin{center}
+\begin{tikzpicture}
+    \begin{umlsystem}[x=4] {Sistema}
+        \umlusecase[x=0, y=-1.5, width=1.8cm]{Ricerca annunci} 
+        \umlusecase[x=4, y=-5, width=2cm]{Visuallizza calendario professionista} 
+        \umlusecase[y=-4, width=1.8cm] {Ricerca con AI}
+        \umlusecase[x=4, width=1.8cm] {Registrazione}       
+        \umlusecase[x=0, y=-6, width=1.8cm]{Crea/Modifica annuncio}
+    \end{umlsystem}
+        
+    \umlactor{Utente non registrato} 
+    \umlactor[y=-6] {Utente registrato}
+    \umlactor[x=12] {Fornitore AI}
+    \umlactor[x=12, y=-4] {Open Street Map}
+
+    \umlinherit{Utente registrato}{Utente non registrato}
+    \umlassoc{Utente non registrato}{usecase-1}
+    
+        
+    \umlextend{usecase-2}{usecase-1}
+    \umlextend{usecase-3}{usecase-1}
+        
+    \umlassoc{Utente non registrato}{usecase-4}
+    \umlassoc{Utente registrato}{usecase-5}
+    \umlassoc{Fornitore AI}{usercase-3}
+    
+\end{tikzpicture}
+\end{center}
+
+\end{document} 
