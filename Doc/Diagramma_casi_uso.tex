@@ -20,33 +20,35 @@
 
 \begin{document}
 
-[Descrizione testuale del diagramma]
+Diagramma dei casi d'uso per Fixd
 
 \begin{center}
 \begin{tikzpicture}
-    \begin{umlsystem}[x=4] {Sistema}
+    \begin{umlsystem}[x=3] {Sistema}
         \umlusecase[x=0, y=-1.5, width=1.8cm]{Ricerca annunci} 
         \umlusecase[x=4, y=-5, width=2cm]{Visuallizza calendario professionista} 
-        \umlusecase[y=-4, width=1.8cm] {Ricerca con AI}
-        \umlusecase[x=4, width=1.8cm] {Registrazione}       
+        \umlusecase[x=5, y=-1.5, width=1.8cm]{Ricerca con AI}
+        \umlusecase[x=5, width=1.8cm] {Registrazione}       
         \umlusecase[x=0, y=-6, width=1.8cm]{Crea/Modifica annuncio}
     \end{umlsystem}
         
-    \umlactor{Utente non registrato} 
-    \umlactor[y=-6] {Utente registrato}
+    \umlactor[x=-1]{Utente non registrato} 
+    \umlactor[x=-1, y=-6] {Utente registrato}
     \umlactor[x=12] {Fornitore AI}
-    \umlactor[x=12, y=-4] {Open Street Map}
+    \umlactor[x=12, y=-6] {Open Street Map}
 
     \umlinherit{Utente registrato}{Utente non registrato}
-    \umlassoc{Utente non registrato}{usecase-1}
     
         
     \umlextend{usecase-2}{usecase-1}
     \umlextend{usecase-3}{usecase-1}
-        
+    
+    
+    \umlassoc{Utente non registrato}{usecase-1}   
     \umlassoc{Utente non registrato}{usecase-4}
     \umlassoc{Utente registrato}{usecase-5}
-    \umlassoc{Fornitore AI}{usercase-3}
+    \umlassoc{Fornitore AI}{usecase-3}
+    \umlassoc{Open Street Map}{usecase-1}
     
 \end{tikzpicture}
 \end{center}
