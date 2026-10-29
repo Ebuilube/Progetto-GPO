@@ -1,0 +1,49 @@
+\documentclass[a4paper,addpoints]{article}
+\usepackage{amsfonts,amssymb,amsmath, amsthm}
+\usepackage{xcolor}
+\usepackage{pgf,tikz,pgfplots}
+\pgfplotsset{compat=1.15}
+\usepgfplotslibrary{fillbetween}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+\usepackage{tabu}
+
+\usepackage{tikz}
+\usetikzlibrary {shapes , arrows , fit , calc, positioning}
+\tikzset{box/.style={draw, rectangle, rounded corners, thick, node distance =7 em, text width =6 em, text centered, minimum height =2.5 em}}
+\tikzset{line/.style={draw, thick, -latex'}}
+
+\usepackage{tikz-uml}
+\tikzumlset{actor below=0.4cm, fill usecase=white, fill class=white, text=black, draw=black}
+
+
+\begin{document}
+
+In Fixd, ogni \emph{utente} registrato ha un nome, un cognome, un'email, una password e un numero di telefono; lo stesso utente pu\`o sia cercare servizi sia offrirli. Ogni utente registrato pu\`o pubblicare da zero a pi\`u \emph{annunci}; ogni annuncio ha un titolo, una descrizione, una tariffa e la posizione geografica (latitudine e longitudine) in cui il servizio viene offerto, e appartiene a una sola \emph{categoria} (es. idraulico, elettricista). Ogni utente possiede un \emph{calendario}, che non esiste senza l'utente e che \`e costituito da un insieme di \emph{disponibilit\`a} (giorno, ora di inizio e ora di fine), le quali non esistono senza il calendario. Una \emph{ricerca}, eseguibile anche da un utente non registrato, ha un testo, un raggio d'azione in chilometri e pu\`o essere filtrata per una categoria; restituisce gli annunci vicini alla posizione di chi cerca e pu\`o essere eseguita anche con l'aiuto dell'intelligenza artificiale. Disegna il diagramma delle classi che descrive il sistema.
+
+\vspace{1cm}
+\begin{center}
+\begin{tikzpicture}
+
+\umlclass[x=0]{Utente}{Nome : string \\ Cognome : string \\ Email : string \\ Password : string \\ Telefono : string}{registrati() : void \\ accedi() : void \\ creaAnnuncio() : Annuncio \\ modificaAnnuncio(a : Annuncio) : void}
+
+\umlclass[x=8]{Annuncio}{Titolo : string \\ Descrizione : string \\ Tariffa : float \\ Latitudine : double \\ Longitudine : double}{distanzaDa(lat : double, lon : double) : double}
+\umlassoc[mult1=1, mult2=*, assoc=pubblica]{Utente}{Annuncio}
+
+\umlclass[x=8, y=-4.5]{Categoria}{Nome : string}{}
+\umlassoc[mult1=*, mult2=1, assoc=appartiene a]{Annuncio}{Categoria}
+
+\umlsimpleclass[x=0, y=-5]{Calendario}
+\umlcompo[mult1=1, mult2=1]{Utente}{Calendario}
+
+\umlclass[x=0, y=-8.5]{Disponibilita}{Giorno : date \\ OraInizio : time \\ OraFine : time}{}
+\umlcompo[mult1=1, mult2=0..*]{Calendario}{Disponibilita}
+
+\umlclass[x=8, y=-8.5]{Ricerca}{Testo : string \\ RaggioKm : int}{esegui() : Annuncio[] \\ consigliaConAI(problema : string) : Annuncio}
+\umlassoc[mult1=*, mult2=0..1, assoc=filtra per]{Ricerca}{Categoria}
+
+\end{tikzpicture}
+\end{center}
+
+\end{document}
