@@ -1,0 +1,26 @@
+[
+  {
+    "sensor_id": "CELLA-BG-007",
+    "timestamp": "2026-11-09T18:55:35.7659990\u002B00:00",
+    "cargo_type": "pharma",
+    "temperature_c": 4.6,
+    "humidity": 55,
+    "battery": 87
+  },
+  {
+    "sensor_id": "CAMION-RM-012",
+    "timestamp": "2026-11-09T18:55:35.7900200\u002B00:00",
+    "cargo_type": "pharma",
+    "temperature_c": 4.6,
+    "humidity": 55,
+    "battery": 87
+  },
+  {
+    "sensor_id": "CELLA-MI-003",
+    "timestamp": "2026-11-09T18:55:35.7913020\u002B00:00",
+    "cargo_type": "pharma",
+    "temperature_c": 4.6,
+    "humidity": 55,
+    "battery": 87
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Risposta elenco misure",
+  "type": "object",
+  "required": ["count", "readings"],
+  "properties": {
+    "count": { "type": "integer", "minimum": 0 },
+    "readings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["sensor_id", "timestamp", "cargo_type", "temperature_c"],
+        "properties": {
+          "sensor_id": { "type": "string", "pattern": "^[A-Z]+-[A-Z]{2}-[0-9]{3}$" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "cargo_type": { "enum": ["food", "pharma", "frozen"] },
+          "temperature_c": { "type": "number", "minimum": -40, "maximum": 40 },
+          "humidity": { "type": "number", "minimum": 0, "maximum": 100 },
+          "battery": { "type": "integer", "minimum": 0, "maximum": 100 }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

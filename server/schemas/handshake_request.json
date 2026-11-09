@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Richiesta handshake",
+  "type": "object",
+  "required": ["p", "g", "A"],
+  "properties": {
+    "p": { "type": "string", "pattern": "^[0-9A-Fa-f]+$" },
+    "g": { "type": "string", "pattern": "^[0-9A-Fa-f]+$" },
+    "A": { "type": "string", "pattern": "^[0-9A-Fa-f]+$" }
+  },
+  "additionalProperties": false
+}

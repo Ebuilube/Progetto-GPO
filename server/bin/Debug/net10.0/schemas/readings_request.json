@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Richiesta elenco misure",
+  "type": "object",
+  "required": ["sensor_id"],
+  "properties": {
+    "sensor_id": { "type": "string", "pattern": "^[A-Z]+-[A-Z]{2}-[0-9]{3}$" },
+    "from": { "type": "string", "format": "date-time" },
+    "to": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}
