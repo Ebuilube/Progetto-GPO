@@ -54,7 +54,7 @@ In Fixd, un visitatore non registrato pu\`o cercare annunci e consultarne il cal
 \umlassoc[mult1=1, mult2=*, arg=pubblica, pos=0.55]{UtenteRegistrato}{Annuncio}
 \umlassoc[mult1=*, mult2=1, arg=appartiene a]{Annuncio}{Categoria}
 \umlassoc[mult1=1, mult2=0..*, arg=avvia]{UtenteNonRegistrato}{Ricerca}
-\umlassoc[mult1=*, mult2=0..1, arg=filtra per]{Ricerca}{Categoria}
+\umlassoc[mult1=*, mult2=0..1, arg=filtra per, pos=0.5]{Ricerca}{Categoria}
 \umlassoc[mult1=1, mult2=0..*, arg=usa, pos2=0.68]{Ricerca}{FornitoreAI}
 \umlassoc[mult1=1, mult2=0..*, arg=usa, pos2=0.68]{Ricerca}{OpenStreetMap}
 
