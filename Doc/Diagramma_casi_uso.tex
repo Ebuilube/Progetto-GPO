@@ -1,56 +1,60 @@
-\documentclass[a4paper,addpoints]{article}
-\usepackage{amsfonts,amssymb,amsmath, amsthm}
-\usepackage{xcolor}
-\usepackage{pgf,tikz,pgfplots}
-\pgfplotsset{compat=1.15}
-\usepgfplotslibrary{fillbetween}
-\usepackage{mathrsfs}
-\usetikzlibrary{arrows}
-\usetikzlibrary{calc}
-\usepackage{tabu}
-
-\usepackage{tikz}
-\usetikzlibrary {shapes , arrows , fit , calc, positioning}
-\tikzset{box/.style={draw, rectangle, rounded corners, thick, node distance =7 em, text width =6 em, text centered, minimum height =2.5 em}}
-\tikzset{line/.style={draw, thick, -latex'}}
-
+\documentclass[a4paper]{article}
+\usepackage[margin=16mm]{geometry}
+\usepackage{graphicx}
 \usepackage{tikz-uml}
-\tikzumlset{actor below=0.4cm, fill usecase=white, fill class=white, text=black, draw=black}
-
+\tikzumlset{actor below=0.5cm, fill usecase=white, text=black, draw=black}
 
 \begin{document}
 
-Diagramma dei casi d'uso per Fixd
-
 \begin{center}
-\begin{tikzpicture}
-    \begin{umlsystem}[x=3] {Sistema}
-        \umlusecase[x=0, y=-1.5, width=1.8cm]{Ricerca annunci} 
-        \umlusecase[x=4, y=-5, width=2cm]{Visuallizza calendario professionista} 
-        \umlusecase[x=5, y=-1.5, width=1.8cm]{Ricerca con AI}
-        \umlusecase[x=5, width=1.8cm] {Registrazione}       
-        \umlusecase[x=0, y=-6, width=1.8cm]{Crea/Modifica annuncio}
-    \end{umlsystem}
-        
-    \umlactor[x=-1]{Utente non registrato} 
-    \umlactor[x=-1, y=-6] {Utente registrato}
-    \umlactor[x=12] {Fornitore AI}
-    \umlactor[x=12, y=-6] {Open Street Map}
-
-    \umlinherit{Utente registrato}{Utente non registrato}
-    
-        
-    \umlextend{usecase-2}{usecase-1}
-    \umlextend{usecase-3}{usecase-1}
-    
-    
-    \umlassoc{Utente non registrato}{usecase-1}   
-    \umlassoc{Utente non registrato}{usecase-4}
-    \umlassoc{Utente registrato}{usecase-5}
-    \umlassoc{Fornitore AI}{usecase-3}
-    \umlassoc{Open Street Map}{usecase-1}
-    
-\end{tikzpicture}
+  \Large\bfseries Diagramma dei casi d'uso di Fixd
 \end{center}
 
-\end{document} 
+Fixd permette di cercare e pubblicare servizi offerti da liberi professionisti.
+Chiunque pu\`o cercare annunci per testo e distanza, filtrare per categoria e
+consultare il calendario dei professionisti. La ricerca assistita dall'AI
+suggerisce annunci a partire da una descrizione del problema.
+Chi crea un account pu\`o accedere, pubblicare e modificare i propri annunci
+e gestire le proprie fasce di disponibilit\`a.
+
+\medskip
+\begin{center}
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[etichetta estensione/.style={midway, fill=white, inner sep=1pt, font=\small}]
+  \begin{umlsystem}[fill=white]{Fixd}
+    \umlusecase[name=registrazione, x=2, y=0.5, width=2.5cm]{Registrati}
+    \umlusecase[name=accesso, x=2, y=-1.2, width=2.5cm]{Accedi}
+    \umlusecase[name=ricerca, x=2, y=-4.2, width=2.5cm]{Cerca annunci}
+    \umlusecase[name=annuncio, x=2, y=-7.1, width=2.5cm]{Crea o modifica un annuncio}
+    \umlusecase[name=disponibilita, x=2, y=-9.1, width=2.5cm]{Gestisci le disponibilit\`a}
+    \umlusecase[name=ricercaAI, x=7.4, y=-1.6, width=2.7cm]{Cerca con l'AI}
+    \umlusecase[name=calendario, x=7.4, y=-6.9, width=2.7cm]{Consulta il calendario del professionista}
+  \end{umlsystem}
+
+  \umlactor[x=-2.45, y=-0.35]{Utente non autenticato}
+  \umlactor[x=-4.8, y=-4.2]{Utente}
+  \umlactor[x=-2.45, y=-8.1]{Utente autenticato}
+  \umlactor[x=11.65, y=-1.6]{Fornitore AI}
+  \umlactor[x=11.65, y=-4.2]{OpenStreetMap}
+
+  % Entrambi i tipi di utente possono cercare annunci.
+  \umlHVinherit[anchor1=west, anchor2=north]{Utente non autenticato}{Utente}
+  \umlHVinherit[anchor1=west, anchor2=south]{Utente  autenticato}{Utente}
+  
+  \umlassoc{Utente}{ricerca}
+  \umlassoc{Utente non autenticato}{registrazione}
+  \umlassoc{Utente non autenticato}{accesso}
+  \umlassoc{Utente autenticato}{annuncio}
+  \umlassoc{Utente autenticato}{disponibilita}
+  \umlassoc{Fornitore AI}{ricercaAI}
+  \umlassoc{OpenStreetMap}{ricerca}
+
+  \draw[tikzuml dependency style]
+    (ricercaAI) -- node[etichetta estensione] {$\ll$extend$\gg$} (ricerca);
+  \draw[tikzuml dependency style]
+    (calendario) -- node[etichetta estensione] {$\ll$extend$\gg$} (ricerca);
+\end{tikzpicture}
+}%
+\end{center}
+
+\end{document}
