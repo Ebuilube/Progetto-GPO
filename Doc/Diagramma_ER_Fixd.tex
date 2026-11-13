@@ -1,0 +1,113 @@
+\documentclass[a4paper]{article}
+\usepackage[italian]{babel}
+\usepackage[margin=16mm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+
+\tikzset{
+  entita/.style={
+    rectangle, draw, semithick, minimum width=2.65cm,
+    minimum height=8mm, font=\bfseries
+  },
+  relazione/.style={
+    diamond, draw, semithick, aspect=2.4, inner sep=1.5pt,
+    minimum width=2.2cm, minimum height=9mm, font=\small
+  },
+  attributo/.style={inner xsep=3pt, inner ysep=2pt, font=\small},
+  linea attributo/.style={draw=black!65, thin},
+  cardinalita/.style={font=\small, inner sep=2pt}
+}
+
+\begin{document}
+
+\begin{center}
+  \Large\bfseries Diagramma entità--relazioni di Fixd
+\end{center}
+
+Il modello rappresenta gli account, gli annunci e le categorie, oltre ai
+calendari dei professionisti e alle relative fasce di disponibilità.
+Ogni annuncio appartiene a una categoria e rimanda al calendario del
+suo autore attraverso l'account.
+
+\vspace{8mm}
+\begin{center}
+\begin{tikzpicture}
+  % Entità e relazioni
+  \node[entita] (utente) at (0,0) {Utente registrato};
+  \node[relazione] (pubblica) at (3.65,0) {Pubblica};
+  \node[entita] (annuncio) at (7.3,0) {Annuncio};
+
+  \node[relazione] (possiede) at (0,-1.85) {Possiede};
+  \node[entita] (calendario) at (0,-3.7) {Calendario};
+  \node[relazione] (include) at (0,-5.55) {Include};
+  \node[entita] (disponibilita) at (0,-7.4) {Disponibilità};
+
+  \node[relazione] (classifica) at (7.3,-1.85) {Classifica};
+  \node[entita] (categoria) at (7.3,-3.7) {Categoria};
+
+  % Cardinalità minime e massime dal lato dell'entità.
+  \draw (utente) -- node[cardinalita, above, midway, yshift=4.5mm] {$(0,N)$} (pubblica);
+  \draw (annuncio) -- node[cardinalita, above, midway, yshift=4.5mm] {$(1,1)$} (pubblica);
+  \draw (utente) -- node[cardinalita, left, pos=.28] {$(1,1)$} (possiede);
+  \draw (calendario) -- node[cardinalita, left, pos=.28] {$(1,1)$} (possiede);
+  \draw (calendario) -- node[cardinalita, left, pos=.28] {$(0,N)$} (include);
+  \draw (disponibilita) -- node[cardinalita, left, pos=.28] {$(1,1)$} (include);
+  \draw (annuncio) -- node[cardinalita, right, pos=.28] {$(1,1)$} (classifica);
+  \draw (categoria) -- node[cardinalita, right, pos=.28] {$(0,N)$} (classifica);
+
+  % Ogni riga collega un solo attributo al bordo della sua entità.
+  \foreach \etichetta/\quota/\attacco in {
+    {\underline{ID utente}}/1.9/3mm,
+    Nome/1.14/1.8mm,
+    Cognome/.38/.6mm,
+    Email/-.38/-.6mm,
+    {Hash password}/-1.14/-1.8mm,
+    Telefono/-1.9/-3mm
+  } {
+    \draw[linea attributo] ([yshift=\attacco]utente.west)
+      -- (-2.55,\quota) node[attributo, anchor=east] {\etichetta};
+  }
+  \foreach \etichetta/\quota/\attacco in {
+    {\underline{ID annuncio}}/1.9/3mm,
+    Titolo/1.14/1.8mm,
+    Descrizione/.38/.6mm,
+    Tariffa/-.38/-.6mm,
+    Latitudine/-1.14/-1.8mm,
+    Longitudine/-1.9/-3mm
+  } {
+    \draw[linea attributo] ([yshift=\attacco]annuncio.east)
+      -- (9.85,\quota) node[attributo, anchor=west] {\etichetta};
+  }
+
+  \draw[linea attributo] (calendario.east)
+    -- (2.55,-3.7) node[attributo, anchor=west] {\underline{ID calendario}};
+  \draw[linea attributo] ([yshift=1.5mm]categoria.east)
+    -- (9.85,-3.32) node[attributo, anchor=west] {\underline{ID categoria}};
+  \draw[linea attributo] ([yshift=-1.5mm]categoria.east)
+    -- (9.85,-4.08) node[attributo, anchor=west] {Nome};
+
+  \foreach \etichetta/\quota/\attacco in {
+    {\underline{ID fascia}}/-6.26/2.7mm,
+    Giorno/-7.02/.9mm,
+    {Ora inizio}/-7.78/-.9mm,
+    {Ora fine}/-8.54/-2.7mm
+  } {
+    \draw[linea attributo] ([yshift=\attacco]disponibilita.east)
+      -- (2.55,\quota) node[attributo, anchor=west] {\etichetta};
+  }
+\end{tikzpicture}
+\end{center}
+\vspace{8mm}
+
+\small
+\noindent\textbf{Legenda.} Gli attributi sottolineati identificano le entità.
+La coppia $(\min,\max)$ indica quante volte un'istanza dell'entità adiacente
+può partecipare alla relazione. $N$ indica un massimo di più istanze.
+
+\smallskip
+\noindent La ricerca è pubblica. Per pubblicare o contattare un professionista
+occorre accedere al proprio account. Il modello comprende i dati persistenti
+descritti nel progetto. La ricerca, i suggerimenti AI e il contatto sono
+funzionalità dell'applicazione.
+
+\end{document}
