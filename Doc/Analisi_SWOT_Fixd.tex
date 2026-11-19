@@ -1,0 +1,127 @@
+\documentclass[a4paper]{article}
+\usepackage[italian]{babel}
+\usepackage[margin=20mm]{geometry}
+\usepackage{array,tabularx,xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{fixdblue}{HTML}{1E3A52}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.3}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries\color{fixdblue} Analisi SWOT di Fixd\par}
+  \smallskip
+  {\large Confronto con Google Maps e ProntoPro\par}
+  \bigskip
+  
+\end{center}
+
+Fixd permette di cercare servizi locali confrontando annunci, tariffe e
+fasce di disponibilità. La consultazione è pubblica; per pubblicare o
+contattare un professionista occorre essere autenticati.
+Google Maps è un'alternativa per la ricerca locale; ProntoPro è un
+concorrente diretto basato su richieste e preventivi.
+
+\section*{Matrice SWOT}
+
+Forze e debolezze sono interne al progetto; opportunità e minacce
+riguardano il mercato e i fornitori. Le ipotesi restano da validare.
+
+\medskip
+{\small
+\begin{tabularx}{\linewidth}{@{}L{1.5cm}YY@{}}
+  \textbf{Origine} & \textbf{Fattori favorevoli} & \textbf{Fattori sfavorevoli} \\
+  \hline
+  \textbf{Interna} &
+  \textbf{Forze progettuali, da validare (S)}\par
+  \textbf{S1. Ricerca locale accessibile.} Ricerca pubblica con raggio in chilometri e filtro per categoria.\par
+  \textbf{S2. Annunci con tariffa e calendario.} Informazioni utili per valutare il servizio prima del contatto;
+  le fasce non costituiscono una prenotazione.\par
+  \textbf{S3. Ricerca assistita facoltativa.} La descrizione del problema può aiutare a individuare il servizio adatto.
+  &
+  \textbf{Debolezze (W)}\par
+  \textbf{W1. Offerta locale da costruire.} Servono annunci pertinenti per ogni zona e categoria.\par
+  \textbf{W2. Segnali di fiducia limitati.} Mancano recensioni e profili verificati; l'account non certifica le competenze.\par
+  \textbf{W3. Aggiornamento manuale.} Le fasce sono affidabili solo se aggiornate dai professionisti.\par
+  \textbf{W4. Dipendenza da integrazioni esterne.} AI e cartografia dipendono da servizi esterni; i suggerimenti vanno validati.\par
+  \textbf{W5. Sostenibilità da definire.} Mancano un modello di ricavo
+  e una stima dei costi di gestione e acquisizione degli utenti.
+  \\
+  \hline
+  \textbf{Esterna} &
+  \textbf{Opportunità (O)}\par
+  \textbf{O1. Bisogno locale da verificare.} Le fasce consultabili potrebbero aiutare chi ha vincoli di orario.\par
+  \textbf{O2. Reti di professionisti sul territorio.} Associazioni e reti di artigiani possono favorire l'offerta iniziale.\par
+  \textbf{O3. Strumenti digitali disponibili.} Calendari esterni potrebbero semplificare gli aggiornamenti, in una fase successiva.
+  &
+  \textbf{Minacce (T)}\par
+  \textbf{T1. Google Maps presidia la ricerca locale.} Schede, recensioni e contatti lo rendono un sostituto credibile.\par
+  \textbf{T2. ProntoPro presidia la scelta del professionista.} Preventivi e recensioni aiutano a scegliere per lavori da definire nel dettaglio.\par
+  \textbf{T3. Condizioni dei fornitori esterni.} Costi e limiti di AI e cartografia possono incidere sulla continuità del servizio.
+  \\
+\end{tabularx}\par}
+
+% Inizio seconda pagina: contenuto conservato ed escluso dalla compilazione.
+% \newpage
+% \section*{Strategie ricavate dalla matrice}
+% 
+% La dispensa distingue tra una risposta reattiva, che adatta le risorse
+% alle opportunità esistenti, e una proattiva, che usa le capacità del
+% progetto per costruire nuove opportunità.
+% Gli incroci indicano come applicare questi due approcci a Fixd.
+% 
+% \begin{description}
+%   \item[SO (S1, S2 + O1).] Provare un lancio locale per piccoli interventi
+%   domestici, mettendo in evidenza raggio, tariffa e fasce consultabili.
+%   È la risposta reattiva al possibile bisogno di trovare qualcuno
+%   compatibile con i propri orari.
+%   \item[WO (W1, W3 + O2, O3).] Coinvolgere una rete locale di artigiani
+%   per costruire la prima offerta e favorire l'aggiornamento manuale
+%   delle fasce. Valutare la sincronizzazione con calendari esterni solo
+%   dopo il pilota. La collaborazione è la componente proattiva della
+%   strategia, perché crea le condizioni per offrire disponibilità
+%   consultabili in una stessa zona.
+%   \item[ST (S2, S3 + T1, T2).] Mostrare tariffa e fasce dichiarate nel
+%   percorso di consultazione e contatto autenticato. Aggiungere poi l'AI
+%   per individuare annunci pertinenti già presenti nel catalogo.
+%   La differenziazione dipende dalla qualità di questi dati e dalla
+%   rapidità con cui il cliente arriva a un contatto utile.
+%   \item[WT (W2, W4, W5 + T1, T2, T3).] Valutare, come sviluppi successivi,
+%   la verifica dei profili e la segnalazione di annunci inattendibili.
+%   Stimare costi ricorrenti e possibili ricavi prima di ampliare il pilota. Mantenere
+%   utilizzabile la ricerca per testo, raggio e categoria anche quando
+%   il fornitore AI è indisponibile.
+% \end{description}
+% 
+% \textbf{Priorità per il lancio.} La prima versione utilizzabile (MVP)
+% comprende account e accesso, annunci, ricerca per testo e raggio, filtro
+% per categoria, contatto autenticato e gestione/consultazione delle fasce.
+% Il calendario è essenziale per verificare S2. La ricerca AI resta una
+% fase successiva, come indicato nel documento sulle priorità.
+% 
+% \textbf{Validazione proposta.} Provare il servizio in un comune con due
+% categorie, per esempio idraulici ed elettricisti. Misurare:
+% \begin{itemize}
+%   \item ricerche con almeno un risultato pertinente sul totale delle ricerche;
+%   \item calendari confermati o aggiornati negli ultimi sette giorni sul
+%   totale dei calendari dei professionisti con annunci;
+%   \item sessioni di ricerca con avvio del contatto sul totale delle
+%   sessioni di ricerca, distinguendo gli abbandoni durante l'accesso.
+% \end{itemize}
+% Sono metriche proposte, non dati già disponibili. Servono una rilevazione
+% degli eventi e una data di aggiornamento del calendario, oggi non descritte
+% nel modello ER. Un avvio del contatto non dimostra che il lavoro sia stato
+% assegnato. Il pilota servirà anche a verificare se l'obbligo di account
+% scoraggia il contatto e se tariffa e disponibilità compensano tale passaggio.
+% 
+% 
+% 
+% 
+% Fine seconda pagina commentata.
+
+\end{document}
