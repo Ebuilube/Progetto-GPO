@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <title>Critical Path Gantt Chart | JSCharting</title>
+    <meta charset="utf-8" />
+
+    <script type="text/javascript" src="./jscharting.js"></script>
+    <script type="text/javascript" src="./gantt-data.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./all.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <div id="chartDiv1" class="chartDiv" style="max-width: 700px;height: 400px; margin: auto;"></div>
+
+    <script type="text/javascript">
+      var dati = window.ganttData;
+      if (!dati || !dati.attivita.length) {
+        document.getElementById('chartDiv1').textContent = dati
+          ? 'Nessuna attività da mostrare.'
+          : 'Esegui il programma C# per generare gantt-data.js.';
+      } else {
+        mostraGantt(dati);
+      }
+
+      function mostraGantt(dati) {
+        // Helper functions to create axisTick label template with two columns of text describing each task.
+        var columnWidths = [80, 30],
+          span = function(val, width) {
+            return '<span style="width:' + width + 'px;">' + val + '</span>';
+          },
+          mapLabels = function(labels) {
+            return labels
+              .map(function(v, i) {
+                return span(v, columnWidths[i]);
+              })
+              .join('');
+          };
+
+        var id = new Map(dati.attivita.map((a, i) => [a.nome, 'attivita' + i]));
+        var serie = dati.attivita.map(a => ({
+          points: [{
+            name: a.nome,
+            id: id.get(a.nome),
+            parent: a.predecessori.map(nome => id.get(nome)).join(','),
+            y: [a.es, a.ef],
+            xAxisTick_label_text: mapLabels(['%name', a.durata]),
+            tooltip: `<b>%name</b><br/>ES: ${a.es} · EF: ${a.ef}<br/>LS: ${a.ls} · LF: ${a.lf}<br/>Durata: ${a.durata}`
+          }]
+        }));
+
+        var criticalPath = dati.camminoCritico.map(nome => id.get(nome)),
+          criticalpathStyle = { color: '#d50000', width: 2 };
+
+        JSC.chart(
+          'chartDiv1',
+          {
+            title_label_text: 'Diagramma di Gantt · Durata totale: ' + dati.durataProgetto,
+            legend_visible: false,
+
+            /*Typical Gantt setup. Horizontal columns by default.*/
+            type: 'horizontal column solid',
+            /*Make columns overlap.*/
+            zAxis_scale_type: 'stacked',
+            /*Time Y Axis.*/
+            yAxis: {
+              scale: { range: { min: 0, max: Math.max(1, dati.durataProgetto), padding: 0 } }
+            },
+            xAxis: { spacingPercentage: 0.5 },
+            palette: ['#33658A', '#86BBD8', '#758E4F', '#F6AE2D', '#F26419', '#590925'],
+            defaultSeries: {
+              defaultPoint: {
+                outline_width: 0
+              }
+            },
+            series: serie,
+            toolbar_items: {
+              'Critical Path': {
+                type: 'checkbox',
+                value: true,
+                position: 'inside top right',
+                events_change: function(value) {
+                  var chart = this.chart;
+                  if (value) {
+                    highlightCriticalPath(chart);
+                  } else {
+                    chart.connectors();
+                  }
+                }
+              }
+            }
+          },
+          highlightCriticalPath
+        );
+
+        function highlightCriticalPath(chart) {
+          if (criticalPath.length > 1) chart.connectors(criticalPath, criticalpathStyle);
+        }
+      }
+    </script>
+  </body>
+</html>
